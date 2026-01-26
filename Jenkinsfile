@@ -33,10 +33,4 @@ pipeline {
     }
   }
 
-  post {
-    success {
-    echo 'Pipeline ejecutado correctamente 🚀'
-    }
-  }
-
 }
