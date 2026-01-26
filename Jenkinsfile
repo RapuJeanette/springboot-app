@@ -14,7 +14,7 @@ pipeline {
         sh 'mvn -B clean package'
       }
     }
-    stage('Build Docker Image') {
+ /*   stage('Build Docker Image') {
       steps {
         sh 'docker build -t $IMAGE_NAME .'
       }
@@ -25,17 +25,11 @@ pipeline {
         sh 'docker run -d --name demo-ci-cd -p 8080:8080 $IMAGE_NAME'
       }
     }
-  }
+  }*/
   post {
     always {
       junit '**/target/surefire-reports/*.xml'
       archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-    }
-  }
-
-  post {
-    success {
-    echo 'Pipeline ejecutado correctamente 🚀'
     }
   }
 
