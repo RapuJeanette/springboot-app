@@ -24,8 +24,8 @@ pipeline {
         sh 'docker rm -f demo-ci-cd || true'
         sh 'docker run -d --name demo-ci-cd -p 8080:8080 $IMAGE_NAME'
       }
-    }
-  }*/
+    }*/
+  }
   post {
     always {
       junit '**/target/surefire-reports/*.xml'
