@@ -27,7 +27,7 @@ pipeline {
     }
     stage('Deploy to Staging') {
       steps {
-        bat 'scp target/${ARTIFACT_NAME} $STAGING_SERVER:/var/local/staging/'
+        bat 'scp target/demo-0.0.1-SNAPSHOT.jar $SERVIDOR_DE_EMPAREJAMIENTO:/var/local/staging/'
         bat 'ssh $STAGING_SERVER "nohup java -jar /var/local/staging/${ARTIFACT_NAME} > /dev/null 2>&1 &"'
       }
     }
