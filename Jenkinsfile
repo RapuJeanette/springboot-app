@@ -1,30 +1,47 @@
 pipeline {
   agent any
   environment {
-    IMAGE_NAME = "demo-ci-cd:latest"
+    STAGING_SERVER = 'root@spring-docker-demo'
+    IMAGE_NAME = "demo-0.0.1-SNAPSHOT.jar"
   }
   stages {
-    stage('Checkout') {
+    stage('Clone Repository') {
       steps {
-        checkout scm
+        git 'https://github.com/RapuJeanette/springboot-app.git'
       }
     }
-    stage('Build & Test') {
+    stage('Build') {
       steps {
-        sh 'mvn -B clean package'
+        sh 'mvn clean package -DskipTests'
       }
     }
- /*   stage('Build Docker Image') {
+    stage('Code Quality') {
       steps {
-        sh 'docker build -t $IMAGE_NAME .'
+        sh 'mvn checkstyle:check'
       }
     }
-    stage('Run Container') {
+    stage('Test') {
       steps {
-        sh 'docker rm -f demo-ci-cd || true'
-        sh 'docker run -d --name demo-ci-cd -p 8080:8080 $IMAGE_NAME'
+        sh 'mvn test'
+       }
+    }
+    stage('Code Coverage') {
+      steps {
+        sh "mvn jacoco:report"
       }
-    }*/
+    }
+    stage('Deploy to Staging') {
+      steps {
+        sh 'scp target/${ARTIFACT_NAME} $STAGING_SERVER:/var/local/staging/'
+        sh 'ssh $STAGING_SERVER "nohup java -jar /var/local/staging/${ARTIFACT_NAME} > /dev/null 2>&1 &"'
+      }
+    }
+    stage('Validate Deployment') {
+      steps {
+          sh 'sleep 10'
+          sh 'curl --fail http://spring-docker-demo:8080/health'
+      }
+    }
   }
   post {
     always {
@@ -32,5 +49,4 @@ pipeline {
       archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
     }
   }
-
 }
