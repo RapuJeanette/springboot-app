@@ -6,50 +6,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Clase principal de la aplicación Spring Boot.
+ * Main Spring Boot application class.
+ * <p>
+ * This class serves as the entry point for the Spring Boot application and exposes
+ * a simple health check endpoint at <code>/health</code>.
+ * </p>
+ * 
+ * <p>
+ * Annotations:
+ * <ul>
+ *   <li>{@link org.springframework.boot.autoconfigure.SpringBootApplication} - Indicates a Spring Boot application.</li>
+ *   <li>{@link org.springframework.web.bind.annotation.RestController} - Marks this class as a REST controller.</li>
+ * </ul>
+ * </p>
+ * @author RapuJeanette
  */
 @SpringBootApplication
-public final class DemoApplication {
+@RestController
+public class DemoApplication {
 
     /**
-     * Constructor privado para evitar instanciación.
-     */
-    private DemoApplication() {
-    }
-
-    /**
-     * Método principal que inicia la aplicación.
+     * The main entry point of the Spring Boot application.
      *
-     * @param args argumentos de línea de comandos
+     * @param args command-line arguments
      */
     public static void main(final String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
-}
 
-/**
- * Controlador REST de ejemplo.
- */
-@RestController
-class HelloController {
-
-    /**
-     * Endpoint principal.
-     *
-     * @return mensaje de bienvenida
-     */
-    @GetMapping("/")
-    public String hello() {
-        return "Hello CI/CD World!";
-    }
-
-    /**
-     * Endpoint de verificación de salud.
-     *
-     * @return estado de la aplicación
-     */
     @GetMapping("/health")
-    public String health() {
-        return "Health check passed!";
+    static public String healthCheck() {
+        return "OK - Usando IA Generativa para el pipeline";
     }
 }
