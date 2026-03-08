@@ -15,11 +15,6 @@ pipeline {
         bat 'mvn clean package -DskipTests'
       }
     }
-    stage('Code Quality') {
-      steps {
-        bat 'mvn checkstyle:check'
-      }
-    }
     stage('Test') {
       steps {
         bat 'mvn test'

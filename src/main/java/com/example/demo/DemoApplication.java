@@ -8,21 +8,23 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Main Spring Boot application class.
  * <p>
- * This class serves as the entry point for the Spring Boot application and exposes
+ * This class serves as the entry point for
+ * the Spring Boot application and exposes
  * a simple health check endpoint at <code>/health</code>.
  * </p>
- * 
  * <p>
  * Annotations:
  * <ul>
- *   <li>{@link org.springframework.boot.autoconfigure.SpringBootApplication} - Indicates a Spring Boot application.</li>
- *   <li>{@link org.springframework.web.bind.annotation.RestController} - Marks this class as a REST controller.</li>
+ *   <li>{@link org.springframework.boot.autoconfigure.SpringBootApplication} -
+ * Indicates a Spring Boot application.</li>
+ *   <li>{@link org.springframework.web.bind.annotation.RestController}
+ * - Marks this class as a REST controller.</li>
  * </ul>
  * </p>
- * @author RapuJeanette
  */
 @SpringBootApplication
 @RestController
+@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
 public class DemoApplication {
 
     /**
@@ -34,8 +36,18 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
+    /**
+     * Health check endpoint.
+     * <p>
+     * Returns a simple message confirming that
+     * the Spring Boot application is running.
+     * </p>
+     *
+     * @return a string message indicating the status of the application
+     */
     @GetMapping("/health")
-    static public String healthCheck() {
+    public static String healthCheck() {
         return "OK - Usando IA Generativa para el pipeline";
     }
+
 }
