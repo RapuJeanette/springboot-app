@@ -50,4 +50,12 @@ public class DemoApplication {
         return "OK - Usando IA Generativa para el pipeline";
     }
 
+    /**
+     * Root endpoint '/'
+     */
+    @GetMapping("/")
+    public static String root() {
+        return "Bienvenido a la aplicación. Endpoint de salud en /health";
+    }
+
 }
